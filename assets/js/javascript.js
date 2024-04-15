@@ -71,7 +71,7 @@ function cityLocation(cityState) {
     // clear the results at every new search
     results.textContent = "";
     // merges the city and state parameters into 1 string value to be called in below function
-    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityState},&limit=5&appid=${fiveDayForecastAPI}`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityState},&appid=${fiveDayForecastAPI}`)
         .then(response => {
             return response.json();
         })
@@ -102,7 +102,7 @@ function cityLocation(cityState) {
                         console.log(weather.list);
                         const firstEntry = weather.list[0]
                         const clouds = document.createElement('p');
-                        clouds.textContent = firstEntry.clouds.all;
+                        clouds.textContent = 'Clouds: ' + firstEntry.clouds.all;
 
                         const buttonContainer = document.createElement('div');
                         const details = document.createElement('button');

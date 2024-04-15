@@ -118,10 +118,14 @@ form.addEventListener('submit', (event) => {
     const cityState = userSearch.value;
     // // const stateName = stateMenu.value;
     cityLocation(cityState);
+    userSearch.value = "";
+
 })
 
 button.addEventListener('click', () => {
     const cityState = userSearch.value;
     // // const stateName = stateMenu.value;
     cityLocation(cityState);
+    userSearch.value = "";
+
 })

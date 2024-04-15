@@ -3,6 +3,7 @@ const userSearch = document.getElementById('search');
 const form = document.querySelector('.formSubmit');
 const results = document.querySelector('div');
 const button = document.querySelector('button');
+const stateMenu = document.getElementById('stateMenu');
 
 // dropdown for state search
 const stateInfo = [{code: 'AL', name: 'Alabama'},
@@ -57,7 +58,6 @@ const stateInfo = [{code: 'AL', name: 'Alabama'},
 {code: 'WI', name:'Wisconsin'},
 {code: 'WY', name:'Wyoming'},];
 
-const stateMenu = document.getElementById('stateMenu');
 
 stateInfo.forEach(state => {
   const option = document.createElement('option');
@@ -71,11 +71,11 @@ stateMenu.addEventListener('change', () => {
     console.log(selectedState);
 });
 // function gets city lat.lon from geocoding api and passes it in variables to weather api to request data
-function cityLocation(city) {
+function cityLocation(city, state) {
     // clear the results at every new search
     results.textContent = "";
 
-    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${fiveDayForecastAPI}`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city},${state},us&limit=5&appid=${fiveDayForecastAPI}`)
         .then(response => {
             return response.json();
         })
@@ -95,7 +95,7 @@ function cityLocation(city) {
                 results.append(container);
 
                 // specify url for lat.lon inside () after lat.lon variables are created and fetch data 
-                const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${fiveDayForecastAPI}`;
+                const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${fiveDayForecastAPI}&units=imperial`;
 
                 fetch(url)
 
@@ -120,11 +120,12 @@ function cityLocation(city) {
 form.addEventListener('submit', (event) => {
     event.preventDefault();
     const city = userSearch.value;
-    cityLocation(city);
+    const stateName = stateMenu.value;
+    cityLocation(city, stateName);
 })
 
 button.addEventListener('click', () => {
     const city = userSearch.value;
-    cityLocation(city);
-
+    const stateName = stateMenu.value;
+    cityLocation(city, stateName);
 })

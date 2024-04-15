@@ -16,11 +16,16 @@
     <main>
         <section class="container">
             <form class="formSubmit">
-                <label class="search-label">Search by City</label>
-                <input type="text" id="search" name="search" placeholder="Search your city">
+                <label class="search-label" for="search">Search by City</label>
+                <input type="text" id="search" name="search" placeholder='"Search your city"'>
                 
-                <button type="button">Press Me!</button>
+                <label class="search-label" for="state">State: </label>
+                <select type="select" id="stateMenu" name="state"> 
+                    <option value="">Select</option>
+                </select>
+
             </form>
+            <button type="button">Press Me!</button>
 
 
             <div class="results"></div>

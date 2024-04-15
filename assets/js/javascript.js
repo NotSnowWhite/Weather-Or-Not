@@ -70,7 +70,7 @@ const stateMenu = document.getElementById('stateMenu');
 function cityLocation(cityState) {
     // clear the results at every new search
     results.textContent = "";
-
+    // merges the city and state parameters into 1 string value to be called in below function
     fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityState},&limit=5&appid=${fiveDayForecastAPI}`)
         .then(response => {
             return response.json();
@@ -99,20 +99,38 @@ function cityLocation(cityState) {
                         return response.json();
                     })
                     .then(weather => {
-                        console.log(weather);
+                        console.log(weather.list);
+                        const firstEntry = weather.list[0]
+                        const clouds = document.createElement('p');
+                        clouds.textContent = firstEntry.clouds.all;
+
+                        const buttonContainer = document.createElement('div');
+                        const details = document.createElement('button');
+                        details.textContent = "Details";
+                        container.appendChild(clouds);
+                        results.append(container);
+
+                        details.addEventListener('click', () => {
+                            document.location.href = './details.html';
+                        });
+
+                        buttonContainer.appendChild(details);
+                        results.append(buttonContainer)
+
                     })
                     .catch(error => {
                         console.error(error);
-                    })
-            })
+                    });
+            });
+
         })
 
         .catch(error => {
-            console.log(error);
+            console.error(error);
         })
 
 }
-// on form submit, call the function to obtain search data
+// on form submit or button click, call the function to obtain search data and clear input after search
 form.addEventListener('submit', (event) => {
     event.preventDefault();
     const cityState = userSearch.value;
@@ -127,5 +145,4 @@ button.addEventListener('click', () => {
     // // const stateName = stateMenu.value;
     cityLocation(cityState);
     userSearch.value = "";
-
 })

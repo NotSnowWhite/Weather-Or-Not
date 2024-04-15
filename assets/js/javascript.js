@@ -66,6 +66,10 @@ stateInfo.forEach(state => {
   stateMenu.appendChild(option);
 });
 
+stateMenu.addEventListener('change', () => {
+    const selectedState = stateMenu.value;
+    console.log(selectedState);
+});
 // function gets city lat.lon from geocoding api and passes it in variables to weather api to request data
 function cityLocation(city) {
     // clear the results at every new search

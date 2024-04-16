@@ -56,14 +56,47 @@ function cityLocation(cityState) {
                         const weatherIcon = document.createElement('img');
                         weatherIcon.src = `http://openweathermap.org/img/wn/${firstEntry.weather[0].icon}@2x.png`;
 
+                        const date = document.createElement('p');
+                        date.textContent = dayjs(firstEntry.dt_txt).format('MM/DD/YYYY');
+
+                        const time = document.createElement('p');
+                        const timeUnix = firstEntry.dt;
+                        const newTime = dayjs.unix(timeUnix).format('hh:mm A');
+                        time.textContent = newTime + ' Forecast';
+
+                        const sunrise = document.createElement('p');
+                        const sunriseUnix = weather.city.sunrise;
+                        const sunriseTime = dayjs.unix(sunriseUnix).format('hh:mm A');
+                        sunrise.textContent = `Sunrise: ${sunriseTime}`;
+
+                        const sunset = document.createElement('p');
+                        const sunsetUnix = weather.city.sunset;
+                        const sunsetTime = dayjs.unix(sunsetUnix).format('hh:mm A');
+                        sunset.textContent = `Sunset: ${sunsetTime}`;
+
+                        // const timezone = document.createElement('p');
+                        timezone = weather.city.timezone;
+
+                        const tempMin = document.createElement('p');
+                        tempMin.textContent = `Min Temp: ${firstEntry.main.temp_min} °F`;
+                        const tempMax = document.createElement('p');
+                        tempMax.textContent = `Max Temp: ${firstEntry.main.temp_max} °F`;
+
                         const details = document.createElement('button');
                         details.textContent = "Details";
 
+                        container.appendChild(date);
+                        container.appendChild(time);
                         container.appendChild(weatherIcon);
                         container.appendChild(temperature);
                         container.appendChild(humidity);
                         container.appendChild(clouds);
                         container.appendChild(windSpeed);
+                        container.appendChild(sunrise);
+                        container.appendChild(sunset);
+                        // container.appendChild(timezone);
+                        container.appendChild(tempMin);
+                        container.appendChild(tempMax);
                         container.appendChild(details);
                         results.append(container);
 

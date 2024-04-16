@@ -16,6 +16,8 @@ fetch(url)
     .then(data => {
         console.log(data);
         const container = document.createElement('div');
+       container.classList.add('container');
+
         const weekday = [
             'Monday',
             'Tuesday',

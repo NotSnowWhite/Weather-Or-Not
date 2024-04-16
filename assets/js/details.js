@@ -26,8 +26,20 @@ fetch(url)
         const sunsetTime = dayjs.unix(sunsetUnix).format('hh:mm A');
         sunset.textContent = `Sunset: ${sunsetTime}`;
 
+        const tempMin = document.createElement('p');
+        tempMin.textContent = `Mini Temp: ${data.list[0].main.temp_min} °F`;
+        const tempMax = document.createElement('p');
+        tempMax.textContent = `Max Temp: ${data.list[0].main.temp_max} °F`;
+
+        const weatherIcon = document.createElement('img');
+        weatherIcon.src = `http://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png`;
+console.log(data.list[0].weather[0].icon);
+
+        container.appendChild(weatherIcon);
         container.appendChild(sunrise);
         container.appendChild(sunset);
+        container.appendChild(tempMin);
+        container.appendChild(tempMax);
 
         display.append(container);
     })

@@ -10,7 +10,7 @@ function cityLocation(cityState) {
     // clear the results at every new search
     results.textContent = "";
     // merges the city and state parameters into 1 string value to be called in below function
-    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityState},&appid=${fiveDayForecastAPI}`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityState},&limit=3&appid=${fiveDayForecastAPI}`)
         .then(response => {
             return response.json();
         })
@@ -42,16 +42,33 @@ function cityLocation(cityState) {
                         const firstEntry = weather.list[0]
 
                         const clouds = document.createElement('p');
-                        clouds.textContent = 'Clouds: ' + firstEntry.clouds.all;
+                        clouds.textContent = 'Clouds: ' + firstEntry.clouds.all + '%';
 
                         const windSpeed = document.createElement('p');
-                        windSpeed.textContent = 'Wind Speed: ' + firstEntry.wind.speed;
+                        windSpeed.textContent = `Wind Speed: ${firstEntry.wind.speed} mph`;
+
+                        const humidity = document.createElement('p');
+                        humidity.textContent = `Humidity: ${firstEntry.main.humidity}%`;
+
+                        const temperature = document.createElement('p');
+                        temperature.textContent = `Temperature: ${firstEntry.main.temp} °F`;
+
+                   
+
+                        container.appendChild(temperature);
+                     
+                        container.appendChild(humidity);
+                        container.appendChild(clouds);
+                        container.appendChild(windSpeed);
+                        results.append(container);
+
                         // details button for every location
                         const buttonContainer = document.createElement('div');
                         const details = document.createElement('button');
                         details.textContent = "Details";
-                        container.appendChild(clouds);
-                        results.append(container);
+                        buttonContainer.appendChild(details);
+                        results.append(buttonContainer);
+
                         // event listener to go to details html upon click
                         details.addEventListener('click', () => {
                             localStorage.setItem('cityState', cityState);
@@ -59,10 +76,6 @@ function cityLocation(cityState) {
                             localStorage.setItem('lon', lon);
                             document.location.href = './details.html';
                         });
-
-                        buttonContainer.appendChild(details);
-                        results.append(buttonContainer)
-
                     })
                     .catch(error => {
                         console.error(error);

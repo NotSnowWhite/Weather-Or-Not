@@ -33,7 +33,7 @@ fetch(url)
 
         const weatherIcon = document.createElement('img');
         weatherIcon.src = `http://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png`;
-console.log(data.list[0].weather[0].icon);
+        console.log(data.list[0].weather[0].icon);
 
         container.appendChild(weatherIcon);
         container.appendChild(sunrise);

@@ -39,7 +39,7 @@ function cityLocation(cityState) {
                     })
                     .then(weather => {
                         console.log(weather.list);
-                        const firstEntry = weather.list[0]
+                        const firstEntry = weather.list[0];
 
                         const clouds = document.createElement('p');
                         clouds.textContent = 'Clouds: ' + firstEntry.clouds.all + '%';
@@ -53,21 +53,19 @@ function cityLocation(cityState) {
                         const temperature = document.createElement('p');
                         temperature.textContent = `Temperature: ${firstEntry.main.temp} °F`;
 
-                   
+                        const weatherIcon = document.createElement('img');
+                        weatherIcon.src = `http://openweathermap.org/img/wn/${firstEntry.weather[0].icon}@2x.png`;
 
+                        const details = document.createElement('button');
+                        details.textContent = "Details";
+
+                        container.appendChild(weatherIcon);
                         container.appendChild(temperature);
-                     
                         container.appendChild(humidity);
                         container.appendChild(clouds);
                         container.appendChild(windSpeed);
+                        container.appendChild(details);
                         results.append(container);
-
-                        // details button for every location
-                        const buttonContainer = document.createElement('div');
-                        const details = document.createElement('button');
-                        details.textContent = "Details";
-                        buttonContainer.appendChild(details);
-                        results.append(buttonContainer);
 
                         // event listener to go to details html upon click
                         details.addEventListener('click', () => {

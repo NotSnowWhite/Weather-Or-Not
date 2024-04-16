@@ -16,14 +16,61 @@ fetch(url)
     .then(data => {
         console.log(data);
         const container = document.createElement('div');
+        const weekday = [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+            'Sunday',
+        ];
 
+        const month = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December',
+        ];
+        
+        // loops through data in list for 5-day forecast
+        data.list.forEach(item => {
+            const date = document.createElement('p');
+            date.textContent = dayjs(item.dt_txt).format('MM/DD/YYYY hh:mm A');
+            date.style.display = 'inline-block';
+
+            const mainDescription = document.createElement('p');
+            mainDescription.textContent = item.weather[0].main;
+
+            const weatherDescription = document.createElement('p');
+            weatherDescription.textContent = item.weather[0].description;
+
+            const weatherIcons = document.createElement('img');
+            weatherIcons.src = `http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`;
+            
+
+            container.appendChild(weatherDescription);
+            container.appendChild(weatherIcons);
+            container.appendChild(mainDescription);
+            container.appendChild(date);
+        });
+
+        
         const time = document.createElement('p');
         const timeUnix = data.list[0].dt;
         const newTime = dayjs.unix(timeUnix).format('hh:mm A');
         time.textContent = newTime;
 
         const date = document.createElement('p');
-        date.textContent = dayjs(data.list[0].dt_txt, 'YYYY-MM-DD HH:mm:ss').format('MM/DD/YYYY hh:mm A');
+        date.textContent = dayjs(data.list[0].dt_txt).format('MM/DD/YYYY');
         
         const sunrise = document.createElement('p');
         const sunriseUnix = data.city.sunrise;
@@ -35,8 +82,8 @@ fetch(url)
         const sunsetTime = dayjs.unix(sunsetUnix).format('hh:mm A');
         sunset.textContent = `Sunset: ${sunsetTime}`;
 
-        const timezone = document.createElement('p');
-        timezone.textContent = data.city.timezone;
+        // const timezone = document.createElement('p');
+        timezone = data.city.timezone;
 
         const tempMin = document.createElement('p');
         tempMin.textContent = `Mini Temp: ${data.list[0].main.temp_min} °F`;
@@ -52,7 +99,7 @@ fetch(url)
         container.appendChild(weatherIcon);
         container.appendChild(sunrise);
         container.appendChild(sunset);
-        container.appendChild(timezone);
+        // container.appendChild(timezone);
         container.appendChild(tempMin);
         container.appendChild(tempMax);
 

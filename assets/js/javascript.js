@@ -10,7 +10,7 @@ function cityLocation(cityState) {
     // clear the results at every new search
     results.textContent = "";
     // merges the city and state parameters into 1 string value to be called in below function
-    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityState},&limit=3&appid=${fiveDayForecastAPI}`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityState},&limit=1&appid=${fiveDayForecastAPI}`)
         .then(response => {
             return response.json();
         })
@@ -74,14 +74,6 @@ function cityLocation(cityState) {
                         const sunsetTime = dayjs.unix(sunsetUnix).format('hh:mm A');
                         sunset.textContent = `Sunset: ${sunsetTime}`;
 
-                        // const timezone = document.createElement('p');
-                        timezone = weather.city.timezone;
-
-                        const tempMin = document.createElement('p');
-                        tempMin.textContent = `Min Temp: ${firstEntry.main.temp_min} °F`;
-                        const tempMax = document.createElement('p');
-                        tempMax.textContent = `Max Temp: ${firstEntry.main.temp_max} °F`;
-
                         const details = document.createElement('button');
                         details.textContent = "Details";
 
@@ -94,9 +86,6 @@ function cityLocation(cityState) {
                         container.appendChild(windSpeed);
                         container.appendChild(sunrise);
                         container.appendChild(sunset);
-                        // container.appendChild(timezone);
-                        container.appendChild(tempMin);
-                        container.appendChild(tempMax);
                         container.appendChild(details);
                         results.append(container);
 

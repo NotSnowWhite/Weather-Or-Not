@@ -5,13 +5,11 @@ const fiveDayForecastAPI = 'c7fc1fd28ddf8fba0642efaab611afd3';
 const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${fiveDayForecastAPI}&units=imperial`;
 const display = document.getElementById('display');
 const backBtn = document.getElementById('back');
-backBtn.addEventListener('click', function() {
+
+backBtn.addEventListener('click', function () {
     window.history.back();
 })
-// push current date to page with dayjs
-// const date = document.createElement('p');
-// date.textContent = dayjs().format('MM/DD/YYYY');
-// display.appendChild(date);
+
 // new fetch to get and append data to the page
 fetch(url)
     .then(response => {
@@ -19,21 +17,20 @@ fetch(url)
     })
     .then(data => {
         console.log(data);
-        const container = document.createElement('div');
-        container.classList.add('container');
-
         const timezone = data.city.timezone;
 
         // loops through data in list for 5-day forecast
         data.list.forEach(item => {
+            // create containers for each entry and append to the display
+            const container = document.createElement('div');
+            container.classList.add('container');
             const date = document.createElement('p');
             dateUnix = dayjs(item.dt_txt).unix() + timezone;
-            date.textContent = dayjs.unix(dateUnix).format('MM/DD/YYYY hh:mm A');
-            // date.style.display = 'inline-block';
+            date.innerHTML = dayjs.unix(dateUnix).format('dddd<br>MM/DD/YYYY<br>hh:mm A');
 
             const time = document.createElement('p');
-            const timeUnix = item.dt ;
-            const newTime = dayjs.unix(timeUnix).format('hh:mm A');
+            const timeUnix = item.dt;
+            const newTime = dayjs.unix(timeUnix + timezone).format('hh:mm A');
             time.textContent = newTime;
 
             const mainDescription = document.createElement('p');
@@ -71,12 +68,10 @@ fetch(url)
             container.appendChild(tempMax);
             container.appendChild(sunrise);
             container.appendChild(sunset);
+            display.append(container);
+
         });
 
-        // const timezone = document.createElement('p');
-        // container.appendChild(timezone);
-
-        display.append(container);
     })
     .catch(error => {
         console.error(error);

@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 function saveSearch(searchQuery) {
-    searchHistory.push({ query: searchQuery});
+    searchHistory.push({ query: searchQuery });
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
 }
 
@@ -26,14 +26,14 @@ function displaySearch() {
         dropdown.appendChild(option);
     });
 
-        dropdown.addEventListener('change', () => {
-            let selection = dropdown.value;
-            if (selection) {
-                
+    dropdown.addEventListener('change', () => {
+        let selection = dropdown.value;
+        if (selection) {
+
             userSearch.value = selection;
             cityLocation(selection);
-            }
-        });
+        }
+    });
 }
 
 function cityLocation(cityState) {
@@ -65,6 +65,8 @@ function cityLocation(cityState) {
                     })
                     .then(weather => {
                         console.log(weather.list);
+                        const timezone = weather.city.timezone;
+
                         const firstEntry = weather.list[0];
 
                         const clouds = document.createElement('p');
@@ -87,7 +89,7 @@ function cityLocation(cityState) {
 
                         const time = document.createElement('p');
                         const timeUnix = firstEntry.dt;
-                        const newTime = dayjs.unix(timeUnix).format('hh:mm A');
+                        const newTime = dayjs.unix(timeUnix + timezone).format('hh:mm A');
                         time.textContent = newTime + ' Forecast';
 
                         const sunrise = document.createElement('p');

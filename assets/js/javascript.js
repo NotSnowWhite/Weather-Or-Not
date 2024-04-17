@@ -7,6 +7,10 @@ const stateMenu = document.getElementById('stateMenu');
 const dropdown = document.getElementById('search-menu');
 let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 
+window.addEventListener('DOMContentLoaded', () => {
+    displaySearch();
+})
+
 function saveSearch(searchQuery) {
     searchHistory.push({ query: searchQuery});
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
@@ -20,12 +24,16 @@ function displaySearch() {
         let option = document.createElement('option');
         option.textContent = item.query;
         dropdown.appendChild(option);
-
-        option.addEventListener('click', () => {
-            userSearch.value = item.query;
-            cityLocation(userSearch.value);
-        });
     });
+
+        dropdown.addEventListener('change', () => {
+            let selection = dropdown.value;
+            if (selection) {
+                
+            userSearch.value = selection;
+            cityLocation(selection);
+            }
+        });
 }
 
 function cityLocation(cityState) {

@@ -109,17 +109,19 @@ function cityLocation(cityState) {
         })
 
 }
+
+
 // on form submit or button click, call the function to obtain search data and clear input after search
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-    const cityState = userSearch.value;
-    cityLocation(cityState);
+    // const cityState =userSearch.value;
+    cityLocation(userSearch.value);
     userSearch.value = "";
 
 })
 
 button.addEventListener('click', () => {
-    const cityState = userSearch.value;
-    cityLocation(cityState);
+    // const cityState = userSearch.value;
+    cityLocation(userSearch.value);
     userSearch.value = "";
 })

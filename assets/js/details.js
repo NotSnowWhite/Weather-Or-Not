@@ -4,6 +4,10 @@ const lon = localStorage.getItem('lon');
 const fiveDayForecastAPI = 'c7fc1fd28ddf8fba0642efaab611afd3';
 const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${fiveDayForecastAPI}&units=imperial`;
 const display = document.getElementById('display');
+const backBtn = document.getElementById('back');
+backBtn.addEventListener('click', function() {
+    window.history.back();
+})
 // push current date to page with dayjs
 // const date = document.createElement('p');
 // date.textContent = dayjs().format('MM/DD/YYYY');

@@ -56,64 +56,49 @@ function cityLocation(cityState) {
                 container.appendChild(stateCity);
                 results.append(container);
 
-                const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${fiveDayForecastAPI}&units=imperial`;
-
+                // const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${fiveDayForecastAPI}&units=imperial`;
+                const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${fiveDayForecastAPI}&units=imperial`;
                 fetch(url)
 
                     .then(response => {
                         return response.json();
                     })
                     .then(weather => {
-                        console.log(weather.list);
-                        const timezone = weather.city.timezone;
-
-                        const firstEntry = weather.list[0];
+                        console.log(weather);
+                        // let timezone = weather.timezone;
 
                         const clouds = document.createElement('p');
-                        clouds.textContent = 'Clouds: ' + firstEntry.clouds.all + '%';
+                        clouds.textContent = 'Clouds: ' + weather.clouds.all + '%';
 
                         const windSpeed = document.createElement('p');
-                        windSpeed.textContent = `Wind Speed: ${firstEntry.wind.speed} mph`;
+                        windSpeed.textContent = `Wind Speed: ${weather.wind.speed} mph`;
 
                         const humidity = document.createElement('p');
-                        humidity.textContent = `Humidity: ${firstEntry.main.humidity}%`;
+                        humidity.textContent = `Humidity: ${weather.main.humidity}%`;
 
                         const temperature = document.createElement('p');
-                        temperature.textContent = `Temperature: ${firstEntry.main.temp} °F`;
+                        temperature.textContent = `Temperature: ${weather.main.temp} °F`;
 
                         const weatherIcon = document.createElement('img');
-                        weatherIcon.src = `http://openweathermap.org/img/wn/${firstEntry.weather[0].icon}@2x.png`;
+                        weatherIcon.src = `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
 
-                        const date = document.createElement('p');
-                        date.textContent = dayjs(firstEntry.dt_txt).format('MM/DD/YYYY');
+                        const weatherDescription = document.createElement('p');
+                        weatherDescription.textContent = weather.weather[0].description;
 
                         const time = document.createElement('p');
-                        const timeUnix = firstEntry.dt;
-                        const newTime = dayjs.unix(timeUnix + timezone).format('hh:mm A');
+                        const newTime = dayjs.unix(weather.dt).format('hh:mm A');
                         time.textContent = newTime + ' Forecast';
-
-                        const sunrise = document.createElement('p');
-                        const sunriseUnix = weather.city.sunrise;
-                        const sunriseTime = dayjs.unix(sunriseUnix).format('hh:mm A');
-                        sunrise.textContent = `Sunrise: ${sunriseTime}`;
-
-                        const sunset = document.createElement('p');
-                        const sunsetUnix = weather.city.sunset;
-                        const sunsetTime = dayjs.unix(sunsetUnix).format('hh:mm A');
-                        sunset.textContent = `Sunset: ${sunsetTime}`;
 
                         const details = document.createElement('button');
                         details.textContent = "Details";
 
-                        container.appendChild(date);
                         container.appendChild(time);
                         container.appendChild(weatherIcon);
+                        container.appendChild(weatherDescription);
                         container.appendChild(temperature);
                         container.appendChild(humidity);
                         container.appendChild(clouds);
                         container.appendChild(windSpeed);
-                        container.appendChild(sunrise);
-                        container.appendChild(sunset);
                         container.appendChild(details);
                         results.append(container);
 

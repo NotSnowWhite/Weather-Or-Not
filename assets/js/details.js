@@ -24,6 +24,7 @@ fetch(url)
             // create containers for each entry and append to the display
             const container = document.createElement('div');
             container.classList.add('container');
+
             const date = document.createElement('p');
             dateUnix = dayjs(item.dt_txt).unix() + timezone;
             date.innerHTML = dayjs.unix(dateUnix).format('dddd<br>MM/DD/YYYY<br>hh:mm A');
@@ -42,9 +43,20 @@ fetch(url)
             const weatherIcons = document.createElement('img');
             weatherIcons.src = `http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`;
 
+            const clouds = document.createElement('p');
+            clouds.textContent = 'Clouds: ' + item.clouds.all + '%';
+
+            const windSpeed = document.createElement('p');
+            windSpeed.textContent = `Wind Speed: ${item.wind.speed} mph`;
+
+            const humidity = document.createElement('p');
+            humidity.textContent = `Humidity: ${item.main.humidity}%`;
+
+            const temperature = document.createElement('p');
+            temperature.textContent = `Temperature: ${item.main.temp} °F`;
 
             const tempMin = document.createElement('p');
-            tempMin.textContent = `Mini Temp: ${item.main.temp_min} °F`;
+            tempMin.textContent = `Min Temp: ${item.main.temp_min} °F`;
 
             const tempMax = document.createElement('p');
             tempMax.textContent = `Max Temp: ${item.main.temp_max} °F`;
@@ -64,6 +76,10 @@ fetch(url)
             container.appendChild(mainDescription);
             container.appendChild(weatherIcons);
             container.appendChild(weatherDescription);
+            container.appendChild(temperature);
+            container.appendChild(humidity);
+            container.appendChild(clouds);
+            container.appendChild(windSpeed);
             container.appendChild(tempMin);
             container.appendChild(tempMax);
             container.appendChild(sunrise);

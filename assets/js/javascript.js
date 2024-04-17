@@ -4,19 +4,38 @@ const form = document.querySelector('.formSubmit');
 const results = document.querySelector('div');
 const button = document.querySelector('button');
 const stateMenu = document.getElementById('stateMenu');
+const dropdown = document.getElementById('search-menu');
+let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 
-// function gets city lat.lon from geocoding api and passes it in variables to weather api to request data
+function saveSearch(searchQuery) {
+    searchHistory.push({ query: searchQuery});
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+}
+
+function displaySearch() {
+
+    dropdown.textContent = '';
+
+    searchHistory.forEach(item => {
+        let option = document.createElement('option');
+        option.textContent = item.query;
+        dropdown.appendChild(option);
+
+        option.addEventListener('click', () => {
+            userSearch.value = item.query;
+            cityLocation(userSearch.value);
+        });
+    });
+}
+
 function cityLocation(cityState) {
-    // clear the results at every new search
     results.textContent = "";
-    // merges the city and state parameters into 1 string value to be called in below function
     fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityState},&limit=1&appid=${fiveDayForecastAPI}`)
         .then(response => {
             return response.json();
         })
         .then(data => {
             console.log(data);
-            // loop through the lon and lat for each city with the same name
             data.forEach(location => {
                 const container = document.createElement('div');
                 const lat = location.lat;
@@ -29,7 +48,6 @@ function cityLocation(cityState) {
                 container.appendChild(stateCity);
                 results.append(container);
 
-                // specify url for lat.lon inside () after lat.lon variables are created and fetch data 
                 const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${fiveDayForecastAPI}&units=imperial`;
 
                 fetch(url)
@@ -89,13 +107,14 @@ function cityLocation(cityState) {
                         container.appendChild(details);
                         results.append(container);
 
-                        // event listener to go to details html upon click
                         details.addEventListener('click', () => {
                             localStorage.setItem('cityState', cityState);
                             localStorage.setItem('lat', lat);
                             localStorage.setItem('lon', lon);
                             document.location.href = './details.html';
                         });
+                        saveSearch(cityState);
+                        displaySearch();
                     })
                     .catch(error => {
                         console.error(error);
@@ -111,17 +130,14 @@ function cityLocation(cityState) {
 }
 
 
-// on form submit or button click, call the function to obtain search data and clear input after search
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-    // const cityState =userSearch.value;
     cityLocation(userSearch.value);
     userSearch.value = "";
 
 })
 
 button.addEventListener('click', () => {
-    // const cityState = userSearch.value;
     cityLocation(userSearch.value);
     userSearch.value = "";
 })

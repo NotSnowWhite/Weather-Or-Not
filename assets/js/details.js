@@ -24,9 +24,10 @@ fetch(url)
             // create containers for each entry and append to the display
             const container = document.createElement('div');
             container.classList.add('container');
+            container.style.display = 'inline-block'
 
             const date = document.createElement('p');
-            dateUnix = dayjs(item.dt_txt).unix() + timezone;
+            const dateUnix = dayjs(item.dt_txt).unix() + timezone;
             date.innerHTML = dayjs.unix(dateUnix).format('dddd<br>MM/DD/YYYY<br>hh:mm A');
 
             const time = document.createElement('p');

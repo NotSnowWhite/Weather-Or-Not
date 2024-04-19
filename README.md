@@ -1,7 +1,7 @@
 # Weather-Or-Not
 The purpose of this repo is to house code for a weather application detailing at least a week of weather data based on city name
 
-# Weather-Me-Up-Module-6
+# Weather-or-Not-Module-6
 
 ## Description
 After going to the URL, a user will see a form with a search input, a submit button, and a recent searches dropdown. Users can search by city, city:state, and city:country. After submitting the search, the results will appear below the search box detailing weather data and with a details button at the top right. when clicking on details, the user is redirected to the details page where they will see the 5 day forecast for the selected location. The forecasts are sorted by day of the week and are scrollable.

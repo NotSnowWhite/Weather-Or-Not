@@ -26,11 +26,11 @@ fetch(url)
             container.classList.add('container');
             container.style.display = 'inline-block'
 
-            const date = document.createElement('p');
+            const date = document.createElement('h3');
             const dateUnix = dayjs(item.dt_txt).unix() + timezone;
-            date.innerHTML = dayjs.unix(dateUnix).format('dddd<br>MM/DD/YYYY<br>hh:mm A');
+            date.innerHTML = dayjs.unix(dateUnix).format('dddd<br>MM/DD/YYYY');
 
-            const time = document.createElement('p');
+            const time = document.createElement('h4');
             const timeUnix = item.dt;
             const newTime = dayjs.unix(timeUnix + timezone).format('hh:mm A');
             time.textContent = newTime;

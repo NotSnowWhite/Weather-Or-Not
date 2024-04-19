@@ -26,16 +26,15 @@ h1 {
 
 .forecast::-webkit-scrollbar-track {
     background: #f48fb1;
-    /* background: #fce4ec;  */
     border-radius: 3px;
     /* display: none; */
-    margin: 55px;
+    margin: 55px 0 55px 25px;
     
 }
 
 .forecast::-webkit-scrollbar-thumb {
-    background: #f48fb1;
-    display: none;
+    background: #fce4ecab; 
+    /* display: none; */
     border-radius: 3px;
 }
 

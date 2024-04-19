@@ -42,6 +42,7 @@ fetch(url)
 
             const day = document.createElement('h3');
             day.textContent = weekday;
+            day.classList.add('day');
             container.appendChild(day);
             // forecastDate[weekday] is now an object of weekdays with arrays of data from the api. the below will pull the api weather data onto the page and sort into weekdays
             forecastDate[weekday].forEach(item => {
@@ -65,6 +66,7 @@ fetch(url)
 
                 const weatherIcons = document.createElement('img');
                 weatherIcons.src = `http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`;
+                weatherIcons.classList.add('icons')
 
                 const clouds = document.createElement('p');
                 clouds.textContent = 'Clouds: ' + item.clouds.all + '%';
@@ -97,8 +99,8 @@ fetch(url)
                 forecastContainer.appendChild(date);
                 forecastContainer.appendChild(time);
                 forecastContainer.appendChild(mainDescription);
-                forecastContainer.appendChild(weatherIcons);
                 forecastContainer.appendChild(weatherDescription);
+                forecastContainer.appendChild(weatherIcons);
                 forecastContainer.appendChild(temperature);
                 forecastContainer.appendChild(humidity);
                 forecastContainer.appendChild(clouds);

@@ -12,8 +12,8 @@ h1 {
 section {
     background-color: lavender;
     width: 30%;
-    margin: 2% auto;
-    padding: 10px 0;
+    margin: 1.5% auto;
+    padding: 8px 0;
 }
 
 input {
@@ -27,7 +27,7 @@ input {
 
 #search-menu, #search-label {
 display: block;
-margin: 6px auto;
+margin: 5px auto;
 }
 
 .details {
@@ -40,6 +40,6 @@ margin: 6px auto;
 
 div.container {
     margin: 0px 438px;
-    padding: 5px 0;
+    padding: 3px 0;
     background-color: rgba(230, 230, 250, 0.527);
 }

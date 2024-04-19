@@ -1,3 +1,9 @@
 .container {
-    margin: 50px auto;
+    margin: 5px auto;
+    display: inline-block;
+
+}
+
+.forecast {
+    display: inline-block;
 }

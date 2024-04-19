@@ -16,10 +16,14 @@
     <main>
         <section class="container">
             <form class="formSubmit">
-                <label class="search-label" for="search">Search by name</label>
+                <div id="search-box">
+                <label class="search-label" for="search">Search</label>
                 <input type="text" id="search" name="search" placeholder='Search: city, state, country' required>
+                </div>
+                <div id="recent-menu">
                 <label for="search-menu">Recents</label>
                 <select id="search-menu" name="search-menu"></select>
+                </div>
             </form>
             <button type="button">Press Me!</button>
 

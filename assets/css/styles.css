@@ -1,4 +1,22 @@
 body {
-    background-color: lavender;
+    background-image: url(../../images/bg7.avif);
+    background-size: 80rem 40rem;
+    background-repeat: no-repeat;
     text-align: center;
+}
+
+section {
+    background-color: lavender;
+    width: 30%;
+    margin: 6% auto;
+    padding: 15px 0;
+}
+
+#search-box {
+
+}
+
+#recent-menu {
+/* background-color: aliceblue; */
+
 }

@@ -46,6 +46,7 @@ function cityLocation(cityState) {
             console.log(data);
             data.forEach(location => {
                 const container = document.createElement('div');
+                container.classList.add('container');
                 const lat = location.lat;
                 const lon = location.lon;
 
@@ -90,6 +91,7 @@ function cityLocation(cityState) {
                         time.textContent = newTime + ' Forecast';
 
                         const details = document.createElement('button');
+                        details.classList.add('details');
                         details.textContent = "Details";
 
                         container.appendChild(time);
